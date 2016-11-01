@@ -4,13 +4,16 @@ var fs= require("fs");
 http.createServer(function (req,res) {
     if(req.url == "/"){
       fs.createReadStream("./login.html").pipe(res);
-    }else if(req.url == ""){
-        var str='';
+    }else if(req.url == "/login"){
+        var buffers='';
         req.on("data", function (data) {
-            str+=data;
+            buffers.push(data);
         });
         req.on("end", function (data) {
-            res.end(str);
+            var result=Buffer.concat(buffers);
+            res.end(result.toString());
         })
+    }else{
+        res.end("404");
     }
 }).listen(8085);
