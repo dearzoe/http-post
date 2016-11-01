@@ -5,7 +5,7 @@ http.createServer(function (req,res) {
     if(req.url == "/"){
       fs.createReadStream("./login.html").pipe(res);
     }else if(req.url == "/login"){
-        var buffers='';
+        var buffers=[];
         req.on("data", function (data) {
             buffers.push(data);
         });
